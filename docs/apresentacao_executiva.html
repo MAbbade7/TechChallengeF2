@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação da Qualidade de Vinhos — Apresentação Executiva</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* ===== SLIDE SYSTEM ===== */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 80px;
+            position: relative;
+            page-break-after: always;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 80px;
+            right: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #722F37, transparent);
+        }
+
+        /* ===== SLIDE 1: CAPA ===== */
+        .slide-cover {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a10 50%, #2d0a1a 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(114, 47, 55, 0.15) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .wine-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+        }
+
+        .cover-title {
+            font-size: 52px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .cover-subtitle {
+            font-size: 24px;
+            font-weight: 300;
+            color: #c9a0a8;
+            margin-bottom: 40px;
+        }
+
+        .cover-meta {
+            font-size: 16px;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        .cover-meta span {
+            color: #c9a0a8;
+            font-weight: 500;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(114, 47, 55, 0.3);
+            border: 1px solid rgba(114, 47, 55, 0.5);
+            color: #e8b4bc;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        .team-section {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(114, 47, 55, 0.3);
+        }
+
+        .team-section h4 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #722F37;
+            margin-bottom: 15px;
+        }
+
+        .team-members {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(114, 47, 55, 0.15);
+            border: 1px solid rgba(114, 47, 55, 0.3);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .team-member .member-icon {
+            font-size: 18px;
+        }
+
+        /* ===== SLIDE HEADERS ===== */
+        .slide-number {
+            font-size: 13px;
+            font-weight: 600;
+            color: #722F37;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        .slide-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .slide-subtitle {
+            font-size: 18px;
+            color: #999;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* ===== CARDS ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #151515 0%, #1a1a1a 100%);
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #722F37;
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: #722F37;
+            margin-bottom: 5px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        /* ===== METRIC BARS ===== */
+        .metric-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: #151515;
+            border-radius: 12px;
+            border: 1px solid #222;
+        }
+
+        .metric-label {
+            width: 200px;
+            font-weight: 500;
+            color: #ccc;
+            font-size: 15px;
+        }
+
+        .metric-bar-container {
+            flex: 1;
+            height: 28px;
+            background: #222;
+            border-radius: 14px;
+            overflow: hidden;
+            margin: 0 20px;
+        }
+
+        .metric-bar {
+            height: 100%;
+            border-radius: 14px;
+            transition: width 1s ease;
+        }
+
+        .metric-bar.wine { background: linear-gradient(90deg, #722F37, #a04050); }
+        .metric-bar.green { background: linear-gradient(90deg, #2ecc71, #27ae60); }
+        .metric-bar.blue { background: linear-gradient(90deg, #3498db, #2980b9); }
+        .metric-bar.orange { background: linear-gradient(90deg, #e67e22, #d35400); }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            width: 70px;
+            text-align: right;
+        }
+
+        /* ===== INSIGHT BOXES ===== */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(114, 47, 55, 0.15), rgba(114, 47, 55, 0.05));
+            border-left: 4px solid #722F37;
+            border-radius: 0 12px 12px 0;
+            padding: 24px 30px;
+            margin: 20px 0;
+        }
+
+        .insight-box h4 {
+            color: #e8b4bc;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .insight-box p {
+            color: #ccc;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ===== COMPARISON TABLE ===== */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: #1a1a1a;
+            color: #c9a0a8;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #722F37;
+        }
+
+        .comparison-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #1a1a1a;
+            font-size: 15px;
+            color: #ccc;
+        }
+
+        .comparison-table tr:nth-child(even) td {
+            background: #111;
+        }
+
+        .comparison-table tr.winner td {
+            background: rgba(114, 47, 55, 0.15);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #722F37;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* ===== TWO COLUMNS ===== */
+        .two-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        /* ===== DONUT CHART ===== */
+        .donut-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        .donut {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: conic-gradient(#722F37 0deg 310deg, #2ecc71 310deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .donut-hole {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .donut-hole .big-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .donut-hole .small-text {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-label {
+            font-size: 15px;
+            color: #ccc;
+        }
+
+        .legend-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* ===== PIPELINE ===== */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-step {
+            background: linear-gradient(135deg, #151515, #1a1a1a);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px 24px;
+            text-align: center;
+            min-width: 140px;
+            transition: all 0.3s ease;
+        }
+
+        .pipeline-step:hover {
+            border-color: #722F37;
+            transform: translateY(-3px);
+        }
+
+        .pipeline-step .step-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .pipeline-step .step-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .pipeline-step .step-desc {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .pipeline-arrow {
+            font-size: 24px;
+            color: #722F37;
+        }
+
+        /* ===== CORRELATION ITEMS ===== */
+        .corr-item {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            background: #151515;
+            border-radius: 12px;
+            border: 1px solid #222;
+            margin-bottom: 16px;
+        }
+
+        .corr-icon {
+            font-size: 32px;
+            margin-right: 16px;
+        }
+
+        .corr-info {
+            flex: 1;
+        }
+
+        .corr-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .corr-desc {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .corr-value {
+            font-size: 22px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 8px;
+        }
+
+        .corr-positive {
+            color: #2ecc71;
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .corr-negative {
+            color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        /* ===== RECOMMENDATION CARDS ===== */
+        .rec-card {
+            background: linear-gradient(135deg, #151515, #1a1a1a);
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 28px;
+            border-top: 3px solid #722F37;
+        }
+
+        .rec-card .rec-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: rgba(114, 47, 55, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .rec-card h3 {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .rec-card p {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* ===== FINAL SLIDE ===== */
+        .final-numbers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .final-number {
+            text-align: center;
+        }
+
+        .final-number .number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #722F37;
+        }
+
+        .final-number .label {
+            font-size: 14px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+            }
+            .cover-title {
+                font-size: 32px;
+            }
+            .slide-title {
+                font-size: 28px;
+            }
+            .two-cols {
+                grid-template-columns: 1fr;
+            }
+            .final-numbers {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .pipeline {
+                flex-direction: column;
+            }
+            .pipeline-arrow {
+                transform: rotate(90deg);
+            }
+            .team-members {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* ===== PRINT ===== */
+        @media print {
+            .slide {
+                page-break-after: always;
+                min-height: 100vh;
+            }
+            body {
+                background: #0a0a0a;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== SLIDE 1: CAPA ==================== -->
+    <div class="slide slide-cover">
+        <div class="cover-content">
+            <div class="wine-icon">🍷</div>
+            <div class="cover-title">Classificação da Qualidade de Vinhos</div>
+            <div class="cover-subtitle">Análise Exploratória e Modelagem Preditiva com Machine Learning</div>
+            <div>
+                <span class="tag">📊 Data Analytics</span>
+                <span class="tag">🤖 Machine Learning</span>
+                <span class="tag">🍇 Indústria Vitivinícola</span>
+            </div>
+            <div class="team-section">
+                <h4>Equipe</h4>
+                <div class="team-members">
+                    <div class="team-member"><span class="member-icon">👤</span> Marcelo Abbade</div>
+                    <div class="team-member"><span class="member-icon">👤</span> André Vieira</div>
+                    <div class="team-member"><span class="member-icon">👤</span> Lívia De Oliveira</div>
+                    <div class="team-member"><span class="member-icon">👤</span> Allan Diniz</div>
+                    <div class="team-member"><span class="member-icon">👤</span> Matheus Gueicha</div>
+                </div>
+            </div>
+            <div class="cover-meta">
+                <span>Tech Challenge Fase 2</span> · Pós-Graduação Data Analytics · FIAP/POS TECH
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 2: O DESAFIO ==================== -->
+    <div class="slide">
+        <div class="slide-number">Slide 02</div>
+        <div class="slide-title">O Desafio</div>
+        <div class="slide-subtitle">Prever a qualidade de vinhos a partir de dados de produção</div>
+
+        <div class="two-cols">
+            <div>
+                <div class="card" style="margin-bottom: 24px;">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">O Problema</div>
+                    <div class="card-desc">
+                        A avaliação da qualidade de vinhos depende de especialistas humanos — um processo 
+                        <strong style="color:#e8b4bc">subjetivo, lento e caro</strong>. Será que dados 
+                        físico-químicos podem prever a qualidade automaticamente?
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💡</div>
+                    <div class="card-title">Nossa Abordagem</div>
+                    <div class="card-desc">
+                        Transformamos a nota de qualidade (0–10) em uma classificação simples: 
+                        <strong style="color:#2ecc71">Alta Qualidade</strong> (nota ≥ 7) ou 
+                        <strong style="color:#e74c3c">Baixa/Média Qualidade</strong> (nota &lt; 7).
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="cards-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card" style="text-align:center;">
+                        <div class="card-value">1.599</div>
+                        <div class="card-desc">Amostras de vinho tinto analisadas</div>
+                    </div>
+                    <div class="card" style="text-align:center;">
+                        <div class="card-value">11</div>
+                        <div class="card-desc">Características físico-químicas medidas</div>
+                    </div>
+                    <div class="card" style="text-align:center;">
+                        <div class="card-value">0</div>
+                        <div class="card-desc">Dados faltantes no dataset</div>
+                    </div>
+                    <div class="card" style="text-align:center;">
+                        <div class="card-value">3</div>
+                        <div class="card-desc">Modelos de IA treinados e comparados</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 3: METODOLOGIA ==================== -->
+    <div class="slide">
+        <div class="slide-number">Slide 03</div>
+        <div class="slide-title">Metodologia</div>
+        <div class="slide-subtitle">Pipeline completa de análise e modelagem</div>
+
+        <div class="pipeline">
+            <div class="pipeline-step">
+                <div class="step-icon">🔍</div>
+                <div class="step-name">Compreensão</div>
+                <div class="step-desc">Contexto e definição do problema</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">
+                <div class="step-icon">📊</div>
+                <div class="step-name">Exploração</div>
+                <div class="step-desc">Análise dos dados e padrões</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">
+                <div class="step-icon">⚙️</div>
+                <div class="step-name">Preparação</div>
+                <div class="step-desc">Limpeza e engenharia de dados</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">
+                <div class="step-icon">🤖</div>
+                <div class="step-name">Modelagem</div>
+                <div class="step-desc">3 algoritmos treinados</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">
+                <div class="step-icon">📈</div>
+                <div class="step-name">Avaliação</div>
+                <div class="step-desc">Métricas e comparação</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">
+                <div class="step-icon">💡</div>
+                <div class="step-name">Insights</div>
+                <div class="step-desc">Recomendações práticas</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <h4>Abordagem</h4>
+            <p>Seguimos uma metodologia estruturada, partindo da compreensão do negócio até a geração de recomendações acionáveis para a produção de vinhos. Cada etapa foi documentada para garantir reprodutibilidade e transparência.</p>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 4: DESBALANCEAMENTO ==================== -->
+    <div class="slide">
+        <div class="slide-number">Slide 04</div>
+        <div class="slide-title">O Grande Desafio dos Dados</div>
+        <div class="slide-subtitle">Desbalanceamento significativo entre as classes</div>
+
+        <div class="donut-container">
+            <div class="donut">
+                <div class="donut-hole">
+                    <div class="big-number">6.4:1</div>
+                    <div class="small-text">Razão de desbalanceamento</div>
+                </div>
+            </div>
+            <div class="donut-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #722F37;"></div>
+                    <div>
+                        <div class="legend-label">Baixa/Média Qualidade</div>
+                        <div class="legend-value">1.382 amostras (86,4%)</div>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #2ecc71;"></div>
+                    <div>
+                        <div class="legend-label">Alta Qualidade</div>
+                        <div class="legend-value">217 amostras (13,6%)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <h4>O que isso significa?</h4>
+            <p>Para cada vinho de alta qualidade, existem mais de 6 vinhos de qualidade inferior. Sem tratamento adequado, um modelo poderia simplesmente "chutar" que todo vinho é de baixa qualidade e acertar 86% das vezes — sem utilidade prática. Utilizamos a técnica <strong style="color:#e8b4bc">SMOTE</strong> para equilibrar os dados de treinamento e garantir que o modelo aprenda a identificar ambas as classes.</p>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 5: CORRELAÇÕES ==================== -->
+    <div class="slide">
+        <div class="slide-number">Slide 05</div>
+        <div class="slide-title">O Que Determina um Bom Vinho?</div>
+        <div class="slide-subtitle">Fatores com maior influência na qualidade</div>
+
+        <div class="two-cols">
+            <div>
+                <h3 style="color: #2ecc71; margin-bottom: 20px; font-size: 16px;">📈 Fatores Positivos</h3>
+                <div class="corr-item">
+                    <div class="corr-icon">🍷</div>
+                    <div class="corr-info">
+                        <div class="corr-name">Teor Alcoólico</div>
+                        <div class="corr-desc">Principal indicador — vinhos com mais álcool tendem a ter melhor avaliação</div>
+                    </div>
+                    <div class="corr-value corr-positive">+0.48</div>
+                </div>
+                <div class="corr-item">
+                    <div class="corr-icon">🧪</div>
+                    <div class="corr-info">
+                        <div class="corr-name">Sulfatos</div>
+                        <div class="corr-desc">Contribuem para preservação e complexidade do sabor</div>
+                    </div>
+                    <div class="corr-value corr-positive">+0.25</div>
+                </div>
+                <div class="corr-item">
+                    <div class="corr-icon">🍋</div>
+                    <div class="corr-info">
+                        <div class="corr-name">Ácido Cítrico</div>
+                        <div class="corr-desc">Adiciona frescor e equilíbrio ao vinho</div>
+                    </div>
+                    <div class="corr-value corr-positive">+0.23</div>
+                </div>
+            </div>
+            <div>
+                <h3 style="color: #e74c3c; margin-bottom: 20px; font-size: 16px;">📉 Fatores Negativos</h3>
+                <div class="corr-item">
+                    <div class="corr-icon">⚗️</div>
+                    <div class="corr-info">
+                        <div class="corr-name">Acidez Volátil</div>
+                        <div class="corr-desc">Em excesso, produz gosto avinagrado — forte indicador negativo</div>
+                    </div>
+                    <div class="corr-value corr-negative">−0.39</div>
+                </div>
+                <div class="corr-item">
+                    <div class="corr-icon">💨</div>
+                    <div class="corr-info">
+                        <div class="corr-name">Dióxido de Enxofre Total</div>
+                        <div class="corr-desc">Níveis elevados podem mascarar aromas e sabores</div>
+                    </div>
+                    <div class="corr-value corr-negative">−0.19</div>
+                </div>
+                <div class="corr-item">
+                    <div class="corr-icon">⚖️</div>
+                    <div class="corr-info">
+                        <div class="corr-name">Densidade</div>
+                        <div class="corr-desc">Vinhos mais densos tendem a ter menor teor alcoólico</div>
+                    </div>
+                    <div class="corr-value corr-negative">−0.17</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 6: OUTLIERS ==================== -->
+    <div class="slide">
+        <div class="slide-number">Slide 06</div>
+        <div class="slide-title">Valores Extremos nos Dados</div>
+        <div class="slide-subtitle">Outliers identificados em diversas variáveis</div>
+
+        <div class="cards-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="card">
+                <div class="card-icon">🧂</div>
+                <div class="card-title">Cloretos</div>
+                <div class="card-desc">Amostras com níveis de sal muito acima do normal — possíveis contaminações ou vinhos de regiões específicas.</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🍬</div>
+                <div class="card-title">Açúcar Residual</div>
+                <div class="card-desc">Valores extremos indicam vinhos com fermentação incompleta ou estilos naturalmente mais doces.</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">💨</div>
+                <div class="card-title">Dióxido de Enxofre</div>
+                <div class="card-desc">Picos elevados sugerem dosagens excessivas de conservante durante a produção.</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚗️</div>
+                <div class="card-title">Acidez Volátil</div>
+                <div class="card-desc">Valores muito altos indicam possível deterioração ou contaminação bacteriana.</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔬</div>
+                <div class="card-title">Acidez Fixa</div>
+                <div class="card-desc">Extremos podem refletir uvas de safras atípicas ou processos de vinificação diferenciados.</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🧪</div>
+                <div class="card-title">Sulfatos</div>
+                <div class="card-desc">Outliers superiores podem indicar adição excessiva durante o processo de conservação.</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <h4>Decisão</h4>
+            <p>Optamos por <strong style="color:#e8b4bc">manter os outliers</strong> no dataset, pois representam variações naturais do processo produtivo e podem conter informações relevantes para a classificação. A padronização dos dados minimiza o impacto de valores extremos nos modelos.</p>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 7: RESULTADOS ==================== -->
+    <div class="slide">
+        <div class="slide-number">Slide 07</div>
+        <div class="slide-title">Resultados dos Modelos</div>
+        <div class="slide-subtitle">Comparação de desempenho entre os três algoritmos</div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Acurácia</th>
+                    <th>Precisão</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                    <th>AUC-ROC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="winner">
+                    <td>Regressão Logística <span class="badge">MELHOR</span></td>
+                    <td>87%</td>
+                    <td>56%</td>
+                    <td>66%</td>
+                    <td>60%</td>
+                    <td>0.90</td>
+                </tr>
+                <tr>
+                    <td>Random Forest</td>
+                    <td>90%</td>
+                    <td>67%</td>
+                    <td>57%</td>
+                    <td>62%</td>
+                    <td>0.89</td>
+                </tr>
+                <tr>
+                    <td>Gradient Boosting</td>
+                    <td>88%</td>
+                    <td>58%</td>
+                    <td>51%</td>
+                    <td>55%</td>
+                    <td>0.86</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 30px;">
+            <div class="slide-number" style="margin-bottom: 15px;">Capacidade de Discriminação (AUC-ROC)</div>
+            <div class="metric-row">
+                <div class="metric-label">Regressão Logística</div>
+                <div class="metric-bar-container">
+                    <div class="metric-bar wine" style="width: 90%;"></div>
+                </div>
+                <div class="metric-value">0.90</div>
+            </div>
+            <div class="metric-row">
+                <div class="metric-label">Random Forest</div>
+                <div class="metric-bar-container">
+                    <div class="metric-bar green" style="width: 89%;"></div>
+                </div>
+                <div class="metric-value">0.89</div>
+            </div>
+            <div class="metric-row">
+                <div class="metric-label">Gradient Boosting</div>
+                <div class="metric-bar-container">
+                    <div class="metric-bar orange" style="width: 86%;"></div>
+                </div>
+                <div class="metric-value">0.86</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <h4>Por que a Regressão Logística venceu?</h4>
+            <p>Apesar de ser o modelo mais simples, a Regressão Logística apresentou o <strong style="color:#e8b4bc">melhor equilíbrio entre identificar vinhos bons e evitar alarmes falsos</strong> (AUC = 0.90). Isso sugere que a relação entre as características do vinho e sua qualidade é predominantemente linear — não é necessário um modelo complexo para capturar esses padrões.</p>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 8: RECOMENDAÇÕES ==================== -->
+    <div class="slide">
+        <div class="slide-number">Slide 08</div>
+        <div class="slide-title">Recomendações para Produção</div>
+        <div class="slide-subtitle">Ações práticas baseadas nos dados</div>
+
+        <div class="cards-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="rec-card">
+                <div class="rec-number">01</div>
+                <h3>Otimizar o Teor Alcoólico</h3>
+                <p>Monitorar e ajustar o processo de fermentação para atingir níveis ideais de álcool. Vinhos com teor alcoólico mais elevado apresentaram consistentemente melhor avaliação de qualidade.</p>
+            </div>
+            <div class="rec-card">
+                <div class="rec-number">02</div>
+                <h3>Controlar a Acidez Volátil</h3>
+                <p>Implementar monitoramento rigoroso da acidez volátil durante todo o processo. Níveis elevados são o principal indicador negativo de qualidade, associados a gosto avinagrado.</p>
+            </div>
+            <div class="rec-card">
+                <div class="rec-number">03</div>
+                <h3>Ajustar Níveis de Sulfatos</h3>
+                <p>Manter sulfatos em níveis adequados para preservação e complexidade. A correlação positiva com qualidade sugere que o equilíbrio correto contribui para melhor avaliação sensorial.</p>
+            </div>
+            <div class="rec-card">
+                <div class="rec-number">04</div>
+                <h3>Implementar Classificação Automatizada</h3>
+                <p>Utilizar o modelo como ferramenta de triagem rápida na linha de produção, permitindo identificar vinhos promissores antes da avaliação por especialistas — reduzindo tempo e custo.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 9: CONCLUSÃO ==================== -->
+    <div class="slide" style="text-align: center;">
+        <div class="slide-number">Slide 09</div>
+        <div class="slide-title">Conclusão</div>
+        <div class="slide-subtitle">Dados podem transformar a produção de vinhos</div>
+
+        <div class="final-numbers">
+            <div class="final-number">
+                <div class="number">90%</div>
+                <div class="label">Capacidade de discriminação (AUC)</div>
+            </div>
+            <div class="final-number">
+                <div class="number">1.599</div>
+                <div class="label">Amostras analisadas</div>
+            </div>
+            <div class="final-number">
+                <div class="number">11</div>
+                <div class="label">Variáveis estudadas</div>
+            </div>
+            <div class="final-number">
+                <div class="number">4</div>
+                <div class="label">Recomendações acionáveis</div>
+            </div>
+        </div>
+
+        <div class="insight-box" style="text-align: left; max-width: 800px; margin: 30px auto;">
+            <h4>Mensagem Final</h4>
+            <p>Demonstramos que é possível prever a qualidade de vinhos com <strong style="color:#e8b4bc">90% de capacidade de discriminação</strong> usando apenas dados físico-químicos. O modelo mais simples (Regressão Logística) superou algoritmos mais complexos, provando que <strong style="color:#e8b4bc">soluções eficazes nem sempre precisam ser complicadas</strong>. Esta ferramenta pode apoiar produtores na tomada de decisão, reduzindo custos e tempo de avaliação.</p>
+        </div>
+
+        <div class="team-section" style="margin-top: 40px;">
+            <h4>Equipe</h4>
+            <div class="team-members">
+                <div class="team-member"><span class="member-icon">👤</span> Marcelo Abbade</div>
+                <div class="team-member"><span class="member-icon">👤</span> André Vieira</div>
+                <div class="team-member"><span class="member-icon">👤</span> Lívia De Oliveira</div>
+                <div class="team-member"><span class="member-icon">👤</span> Allan Diniz</div>
+                <div class="team-member"><span class="member-icon">👤</span> Matheus Gueicha</div>
+            </div>
+        </div>
+
+        <div class="cover-meta" style="margin-top: 30px;">
+            <span>Tech Challenge Fase 2</span> · Pós-Graduação Data Analytics · FIAP/POS TECH
+        </div>
+    </div>
+
+</body>
+</html>
