@@ -1,97 +1,93 @@
-# 🎬 Roteiro — Vídeo Executivo (até 5 minutos)
+# 🎬 Roteiro do Vídeo Executivo — Tech Challenge Fase 2
 
-## Classificação da Qualidade de Vinhos com Machine Learning
-
-> **Dica:** Linguagem executiva — imagine que está apresentando para diretores de uma vinícola. Evite termos técnicos.
-
----
-
-## ⏱️ 0:00 – 0:30 | Abertura
-
-**[Apresentador na tela ou slide de capa]**
-
-> "Olá! Somos o grupo formado por Marcelo Abbade, André Vieira, Lívia De Oliveira, Allan Diniz e Matheus Gueicha, alunos da Pós-Graduação em Data Analytics da FIAP/POS TECH."
->
-> "Hoje vamos apresentar nosso projeto do Tech Challenge Fase 2: como usar dados para prever a qualidade de um vinho — antes mesmo de ele ser avaliado por um especialista."
+**Duração total:** até 5 minutos
+**Tom:** Executivo, linguagem acessível, como se apresentasse para diretores
+**Suporte visual:** Apresentação HTML (`docs/apresentacao_executiva.html`)
 
 ---
 
-## ⏱️ 0:30 – 1:15 | O Problema
+## 📋 Abertura (0:00 – 0:30) — *Slide 1*
 
-**[Slide: O Desafio]**
-
-> "A indústria de vinhos avalia a qualidade dos seus produtos por meio de degustadores especialistas. Esse processo é demorado, subjetivo e depende da experiência de cada avaliador."
+> "Olá! Somos **Marcelo Abbade** (RM373613), **André Vieira** (RM370784), **Lívia De Oliveira** (RM370348), **Allan Diniz** (RM373478) e **Matheus Gueicha** (RM371344), alunos da Pós-Graduação em Data Analytics da FIAP.
 >
-> "Nossa pergunta foi: **será que conseguimos prever se um vinho é de alta qualidade usando apenas dados da sua composição química?**"
->
-> "Para isso, analisamos um banco de dados público com quase 1.600 amostras de vinho tinto, contendo 11 características como teor alcoólico, acidez e níveis de enxofre."
+> Hoje vamos apresentar nosso projeto do Tech Challenge Fase 2: como usamos **inteligência artificial para prever a qualidade de vinhos** — transformando dados químicos em decisões inteligentes para a indústria vinícola."
 
 ---
 
-## ⏱️ 1:15 – 2:15 | O que os Dados nos Contaram
+## 🎯 O Problema (0:30 – 1:15) — *Slides 2 e 3*
 
-**[Slide: Análise dos Dados / Correlações]**
-
-> "Primeiro, exploramos os dados para entender o que diferencia um vinho bom de um vinho mediano."
+> "Tradicionalmente, a qualidade de um vinho é avaliada por sommeliers — um processo **subjetivo, caro e difícil de escalar**.
 >
-> "Descobrimos que apenas **13,6% dos vinhos** da base são de alta qualidade — ou seja, é um produto raro, o que torna a previsão mais desafiadora."
+> Nossa pergunta foi: **é possível prever se um vinho é de alta qualidade usando apenas suas propriedades químicas?**
 >
-> "As análises revelaram padrões claros:"
+> Trabalhamos com um dataset de **1.599 vinhos tintos portugueses**, cada um descrito por 11 variáveis químicas como teor alcoólico, acidez e sulfatos.
 >
-> - "**Vinhos com maior teor alcoólico** tendem a ter qualidade superior"
-> - "**Acidez volátil alta** é um sinal negativo — está associada a sabores desagradáveis como vinagre"
-> - "**Sulfatos em níveis adequados** contribuem para a preservação e qualidade"
-> - "**Ácido cítrico** em boa quantidade traz frescor ao vinho"
->
-> "Também identificamos valores extremos em algumas variáveis, como cloretos e açúcar residual, que precisaram de tratamento especial."
+> Na fase de limpeza, identificamos que **240 registros (15%)** eram duplicatas exatas. Removemos para evitar viés no modelo — ficamos com **1.359 amostras confiáveis**."
 
 ---
 
-## ⏱️ 2:15 – 3:15 | A Solução
+## 📊 O que os Dados nos Contaram (1:15 – 2:15) — *Slides 4, 5 e 6*
 
-**[Slide: Metodologia / Resultados]**
-
-> "Com esses insights, construímos três modelos de inteligência artificial para prever automaticamente a qualidade do vinho."
+> "A análise exploratória revelou descobertas importantes:
 >
-> "Antes de treinar os modelos, preparamos os dados: padronizamos as escalas, criamos novas variáveis combinando características existentes, e equilibramos a base para que o modelo aprendesse igualmente sobre vinhos bons e medianos."
+> **Primeiro**, o desbalanceamento: **86% dos vinhos são de qualidade baixa/média** e apenas 14% são de alta qualidade. Isso exigiu técnicas especiais de balanceamento.
 >
-> "Testamos três abordagens diferentes e a que apresentou melhor resultado foi a **Regressão Logística**, com uma taxa de acerto de 90% na capacidade de distinguir vinhos de alta e baixa qualidade."
+> **Segundo**, identificamos os 3 fatores mais importantes:
+> - O **teor alcoólico** é o principal preditor — vinhos melhores têm mais álcool, indicando uvas mais maduras.
+> - A **acidez volátil** tem impacto negativo — excesso indica problemas na fermentação.
+> - Os **sulfatos** ajudam a preservar aromas e sabores — associados a vinhos de maior qualidade.
+>
+> Também criamos 4 novas variáveis a partir das originais para capturar interações entre os compostos químicos."
 
 ---
 
-## ⏱️ 3:15 – 4:15 | Resultados e Recomendações
+## 🤖 A Solução (2:15 – 3:15) — *Slides 7 e 8*
 
-**[Slide: Recomendações para Produção]**
-
-> "O que isso significa na prática para uma vinícola?"
+> "Treinamos três modelos de Machine Learning:
+> - **Regressão Logística** — modelo clássico e interpretável
+> - **Random Forest** — conjunto de árvores de decisão
+> - **Gradient Boosting** — técnica avançada de ensemble
 >
-> "Nosso modelo identificou as **4 alavancas principais** que um produtor pode monitorar:"
+> Para lidar com o desbalanceamento, aplicamos a técnica **SMOTE**, que cria exemplos sintéticos da classe minoritária — apenas nos dados de treino, para não contaminar a avaliação.
 >
-> 1. "**Teor alcoólico** — otimizar o processo de fermentação para atingir níveis ideais"
-> 2. "**Acidez volátil** — controlar rigorosamente para evitar degradação do sabor"
-> 3. "**Sulfatos** — ajustar os níveis para melhor preservação"
-> 4. "**Ácido cítrico** — manter em quantidade adequada para equilíbrio e frescor"
+> O **melhor modelo foi a Regressão Logística**, com um AUC de **0.90** — ou seja, o modelo consegue distinguir corretamente um vinho de alta qualidade em **90% dos casos**.
 >
-> "Com esse modelo, um produtor pode analisar a composição do vinho **durante a produção** e fazer ajustes antes da avaliação final — economizando tempo e reduzindo a subjetividade."
+> Curiosamente, o modelo mais simples superou os mais complexos — evidência de que os dados têm uma **relação linear forte** com a qualidade."
 
 ---
 
-## ⏱️ 4:15 – 5:00 | Conclusão
+## 💡 Recomendações (3:15 – 4:15) — *Slide 9*
 
-**[Slide: Conclusão]**
-
-> "Em resumo: analisamos quase 1.600 vinhos, identificamos os fatores-chave de qualidade e construímos um modelo com 90% de capacidade de acerto."
+> "Com base nos resultados, três recomendações práticas para a indústria:
 >
-> "Isso mostra que a ciência de dados pode ser uma aliada poderosa para a indústria vitivinícola — transformando dados em decisões mais inteligentes e produtos de melhor qualidade."
+> **1. Priorizar a maturação das uvas** — vinhos de alta qualidade consistentemente têm maior teor alcoólico, que vem de uvas mais maduras.
 >
-> "Obrigado pela atenção! O código completo e a análise detalhada estão disponíveis no nosso repositório no GitHub."
+> **2. Controlar rigorosamente a acidez volátil** — manter baixa é essencial. Excesso indica contaminação bacteriana durante a fermentação.
+>
+> **3. Monitorar os níveis de sulfatos** — em doses adequadas, são aliados na conservação de aromas e sabores que definem um bom vinho.
+>
+> Esse modelo pode ser usado como **ferramenta de triagem rápida** no controle de qualidade, complementando — não substituindo — a avaliação dos especialistas."
 
 ---
 
-## 📋 Dicas para a Gravação
+## 🏁 Conclusão (4:15 – 5:00) — *Slide 9*
 
-- **Duração:** Máximo 5 minutos — ensaie antes para não estourar
-- **Linguagem:** Executiva, sem jargões técnicos (não fale "SMOTE", "AUC-ROC", "StandardScaler")
-- **Visual:** Use a apresentação HTML como slides de fundo (abra no Chrome em tela cheia com F11)
-- **Divisão sugerida:** Um ou dois integrantes apresentam, os demais aparecem na abertura/encerramento
-- **Ferramenta:** Grave pelo Google Meet, Zoom ou Loom (compartilhando tela com os slides)
+> "Em resumo: analisamos 1.359 vinhos, treinamos 3 modelos e alcançamos uma **taxa de acerto de 90%** na distinção entre vinhos de alta e baixa qualidade.
+>
+> Demonstramos que **dados químicos objetivos podem prever qualidade** — transformando um processo historicamente subjetivo em uma decisão baseada em evidências.
+>
+> Obrigado! O código completo e toda a documentação estão disponíveis no nosso repositório GitHub."
+
+---
+
+## ⏱️ Resumo de Tempos
+
+| Seção | Início | Duração |
+|-------|--------|---------|
+| Abertura | 0:00 | 30s |
+| O Problema | 0:30 | 45s |
+| Dados | 1:15 | 60s |
+| Solução | 2:15 | 60s |
+| Recomendações | 3:15 | 60s |
+| Conclusão | 4:15 | 45s |
+| **Total** | — | **5:00** |

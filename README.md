@@ -4,11 +4,11 @@
 
 | Nome | RM |
 |------|-----|
-| Marcelo Abbade | — |
-| André Vieira | — |
-| Lívia De Oliveira | — |
-| Allan Diniz | — |
-| Matheus Gueicha | — |
+| Marcelo Abbade | RM373613 |
+| André Vieira | RM370784 |
+| Lívia De Oliveira | RM370348 |
+| Allan Diniz | RM373478 |
+| Matheus Gueicha | RM371344 |
 
 > **Pós-Graduação em Data Analytics — FIAP/POS TECH**
 
