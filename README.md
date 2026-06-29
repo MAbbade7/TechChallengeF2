@@ -1,18 +1,35 @@
 # 🍷 Tech Challenge Fase 2 — Classificação da Qualidade de Vinhos
 
+## 👥 Equipe
+
+| Nome | RM |
+|------|-----|
+| Marcelo Abbade | — |
+| André Vieira | — |
+| Lívia De Oliveira | — |
+| Allan Diniz | — |
+| Matheus Gueicha | — |
+
+> **Pós-Graduação em Data Analytics — FIAP/POS TECH**
+
+---
+
 ## Descrição do Projeto
 
 Projeto desenvolvido como parte do **Tech Challenge Fase 2** da Pós-Graduação em Data Analytics (FIAP/POS TECH). O objetivo é construir um modelo de Machine Learning capaz de prever a qualidade de vinhos tintos com base em suas características físico-químicas.
 
 A variável de qualidade (nota de 0 a 10) foi transformada em classificação **binária**:
-- **Alta Qualidade (1):** nota ≥ 7
-- **Baixa/Média Qualidade (0):** nota < 7
+- **Alta Qualidade (1)**: nota ≥ 7
+- **Baixa/Média Qualidade (0)**: nota < 7
+
+---
 
 ## Dataset
 
-- **Fonte:** [Wine Quality Dataset — Kaggle](https://www.kaggle.com/datasets/uciml/red-wine-quality-cortez-et-al-2009)
-- **Amostras:** 1.599 vinhos tintos
-- **Variáveis:** 11 características físico-químicas + 1 variável alvo (quality)
+- **Fonte**: [Wine Quality Dataset — Kaggle](https://www.kaggle.com/datasets/uciml/red-wine-quality-cortez-et-al-2009)
+- **Amostras brutas**: 1.599 vinhos tintos
+- **Após remoção de duplicatas**: 1.359 amostras (240 duplicatas exatas removidas — 15,01%)
+- **Variáveis**: 11 características físico-químicas + 1 variável alvo (`quality`)
 
 ### Variáveis do Dataset
 
@@ -29,130 +46,155 @@ A variável de qualidade (nota de 0 a 10) foi transformada em classificação **
 | `pH` | pH |
 | `sulphates` | Sulfatos |
 | `alcohol` | Teor alcoólico |
-| `quality` | Nota de qualidade (0–10) |
+| `quality` | Nota de qualidade (0–10) → variável alvo |
+
+---
 
 ## Estrutura do Repositório
 
 ```
-wine-quality-classification/
-│
-├── data/                   # Base de dados utilizada
-│   └── winequality-red.csv
-├── notebooks/              # Notebook com análise e modelagem
-│   └── wine_quality_classification_v2.ipynb
-├── src/                    # Scripts auxiliares
-├── results/                # Gráficos e métricas dos modelos
-│   ├── distribuicao_quality_original.png
-│   ├── distribuicao_quality_binaria.png
-│   ├── distribuicao_variaveis.png
-│   ├── distribuicao_por_classe.png
+TechChallengeF2/
+├── data/
+│   └── winequality-red.csv          # Dataset original
+├── notebooks/
+│   └── wine_quality_classification_v2.ipynb  # Notebook principal
+├── src/                              # Scripts auxiliares (se necessário)
+├── results/                          # Gráficos e visualizações gerados
+│   ├── distribuicao_quality.png
+│   ├── distribuicao_binaria.png
+│   ├── histogramas_features.png
 │   ├── boxplots_outliers.png
 │   ├── matriz_correlacao.png
-│   ├── correlacao_com_quality.png
-│   ├── comparacao_metricas.png
+│   ├── correlacao_quality.png
+│   ├── duplicatas_analise.png
+│   ├── matriz_normalizada.png
+│   ├── feature_importance_consolidada.png
 │   ├── matrizes_confusao.png
-│   ├── curvas_roc.png
-│   ├── feature_importance.png
-│   ├── coeficientes_logistica.png
-│   └── matriz_normalizada.png
-├── requirements.txt        # Bibliotecas utilizadas
-└── README.md               # Descrição do projeto
+│   └── curvas_roc.png
+├── docs/
+│   ├── apresentacao_executiva.html   # Apresentação com storytelling da EDA
+│   └── roteiro_video.md             # Roteiro do vídeo executivo
+├── requirements.txt                  # Dependências do projeto
+└── README.md                         # Este arquivo
 ```
 
-## Pipeline de Análise
+---
+
+## Pipeline do Projeto
 
 ### 1. Compreensão do Problema
-- Interpretação do contexto da indústria vitivinícola
-- Definição da variável alvo binária (quality ≥ 7)
-- Verificação de dados faltantes (nenhum encontrado) e duplicatas
+- Análise inicial do dataset (shape, tipos, estatísticas descritivas)
+- Verificação de valores nulos (nenhum encontrado)
+- Criação da variável binária `quality_label` (≥ 7 = Alta, < 7 = Baixa/Média)
 
-### 2. Análise Exploratória de Dados (EDA)
-- Distribuição de todas as variáveis físico-químicas
-- Análise de correlações com justificativas técnicas
-- Detecção de outliers via boxplots e método IQR
-- Análise de balanceamento: **86.4%** classe 0 vs **13.6%** classe 1 (desbalanceado)
+### 2. Tratamento de Duplicatas
+- Identificadas **240 duplicatas exatas** (15,01% do dataset)
+- Análise comparativa da distribuição de qualidade: duplicados vs. únicos
+- **Decisão: remoção** — para evitar data leakage e viés no treinamento
+- Dataset final: **1.359 registros**
 
-### 3. Pré-processamento
-- Remoção de registros duplicados
-- Divisão treino/teste estratificada (80/20)
-- Padronização com `StandardScaler`
-- **Feature Engineering:** criação de 4 novas variáveis (acidez total, razão SO₂, álcool/acidez, álcool/densidade)
-- **SMOTE** para balanceamento das classes no conjunto de treino
+### 3. Análise Exploratória (EDA)
+- Histogramas de todas as variáveis
+- Boxplots por classe para detecção de outliers (método IQR)
+- Matriz de correlação com análise de multicolinearidade
+- Análise de balanceamento de classes (~86% classe 0, ~14% classe 1)
+- Justificativas estatísticas para cada observação
 
-### 4. Desenvolvimento de Modelos
-Três modelos foram treinados e comparados:
+### 4. Pré-processamento
+- Separação treino/teste (80/20) com estratificação
+- Padronização com `StandardScaler` (fit apenas no treino)
+- Feature engineering: 4 novas variáveis criadas
+  - `total_acidity` = fixed acidity + volatile acidity
+  - `sulfur_ratio` = free sulfur dioxide / total sulfur dioxide
+  - `alcohol_density_ratio` = alcohol / density
+  - `acidity_alcohol` = volatile acidity × alcohol
+- Balanceamento com **SMOTE** (aplicado apenas no treino)
+
+### 5. Modelagem
+Três modelos treinados e comparados:
 
 | Modelo | Descrição |
 |--------|-----------|
-| **Regressão Logística** | Modelo linear baseline |
+| **Regressão Logística** | Modelo linear interpretável |
 | **Random Forest** | Ensemble de árvores de decisão |
-| **Gradient Boosting** | Ensemble com boosting sequencial |
+| **Gradient Boosting** | Boosting sequencial de árvores |
 
-### 5. Avaliação dos Modelos
-Métricas utilizadas:
-- **Accuracy** — proporção de acertos gerais
-- **Precision** — dos que o modelo disse ser alta qualidade, quantos realmente são
-- **Recall** — dos vinhos de alta qualidade, quantos o modelo identificou
-- **F1-Score** — média harmônica entre precision e recall
-- **AUC-ROC** — capacidade de discriminação do modelo
+- Validação cruzada estratificada (5 folds) em cada modelo
 
-**Melhor modelo: Regressão Logística** com AUC = 0.90, demonstrando excelente capacidade de discriminação.
+### 6. Avaliação
+- Métricas: Accuracy, Precision, Recall, F1-Score, AUC-ROC
+- Matrizes de confusão (absolutas e normalizadas)
+- Curvas ROC comparativas
+- Comparação visual dos modelos
 
-### 6. Interpretação dos Resultados
+### 7. Interpretação
+- Feature importance (Random Forest e Gradient Boosting)
+- Coeficientes da Regressão Logística
+- **Variáveis mais influentes**: `alcohol`, `volatile acidity`, `sulphates`
+- Implicações práticas para a produção de vinhos
 
-**Variáveis mais influentes na qualidade do vinho:**
-- 🍷 **Teor alcoólico (alcohol)** — principal indicador de alta qualidade
-- ⚗️ **Acidez volátil (volatile acidity)** — impacto negativo na qualidade
-- 🧪 **Sulfatos (sulphates)** — correlação positiva com qualidade
-- 🍋 **Ácido cítrico (citric acid)** — contribui para frescor e qualidade
+---
 
-**Implicações para produção:**
-- Monitorar e otimizar o teor alcoólico durante a fermentação
-- Controlar rigorosamente a acidez volátil para evitar degradação
-- Ajustar níveis de sulfatos para preservação e qualidade
-- Manter ácido cítrico em níveis adequados para equilíbrio
+## Principais Resultados
+
+- **Melhor modelo**: Regressão Logística (AUC ≈ 0.90)
+- **Variáveis mais importantes**:
+  - 🍷 **Álcool** — principal preditor de alta qualidade
+  - ⚗️ **Acidez volátil** — impacto negativo na qualidade
+  - 🧪 **Sulfatos** — associados a vinhos de melhor qualidade
+- **Desbalanceamento tratado** com SMOTE, melhorando recall da classe minoritária
+
+---
+
+## Como Executar
+
+### Pré-requisitos
+- Python 3.10+
+- pip
+
+### Instalação
+
+```bash
+# Clone o repositório
+git clone https://github.com/MAbbade7/TechChallengeF2.git
+cd TechChallengeF2
+
+# Crie e ative o ambiente virtual
+python -m venv venv
+# Windows:
+.\venv\Scripts\Activate
+# Linux/Mac:
+source venv/bin/activate
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# Execute o notebook
+jupyter notebook notebooks/wine_quality_classification_v2.ipynb
+```
+
+---
 
 ## Tecnologias Utilizadas
 
 - **Python 3.14**
-- **Pandas / NumPy** — manipulação de dados
+- **Pandas** — manipulação de dados
+- **NumPy** — operações numéricas
 - **Matplotlib / Seaborn** — visualizações
-- **Scikit-learn** — modelagem e avaliação
-- **Imbalanced-learn (SMOTE)** — balanceamento de classes
-- **Jupyter Notebook** — desenvolvimento interativo
+- **Scikit-learn** — modelagem e métricas
+- **Imbalanced-learn** — SMOTE para balanceamento
 
-## Como Executar
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/seu-usuario/wine-quality-classification.git
-cd wine-quality-classification
-```
-
-2. Crie e ative o ambiente virtual:
-```bash
-python -m venv venv
-# Windows
-.\venv\Scripts\Activate
-# Linux/Mac
-source venv/bin/activate
-```
-
-3. Instale as dependências:
-```bash
-pip install -r requirements.txt
-```
-
-4. Execute o notebook:
-```bash
-jupyter notebook notebooks/wine_quality_classification_v2.ipynb
-```
-
-## Autores
-
-- Marcelo Abbade
+---
 
 ## Referências
 
-- [Wine Quality Dataset — UCI/Kaggle](https://www.kaggle.com/datasets/uciml/red-wine-quality-cortez-et-al-2009)
-- P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. *Modeling wine preferences by data mining from physicochemical properties.* Decision Support Systems, 2009.
+- Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). *Modeling wine preferences by data mining from physicochemical properties.* Decision Support Systems, 47(4), 547-553.
+- [Wine Quality Dataset — Kaggle](https://www.kaggle.com/datasets/uciml/red-wine-quality-cortez-et-al-2009)
+- [Scikit-learn Documentation](https://scikit-learn.org/)
+- [Imbalanced-learn Documentation](https://imbalanced-learn.org/)
+
+---
+
+## 👥 Autores
+
+Desenvolvido por **Marcelo Abbade**, **André Vieira**, **Lívia De Oliveira**, **Allan Diniz** e **Matheus Gueicha** — Pós-Graduação em Data Analytics, FIAP/POS TECH.
